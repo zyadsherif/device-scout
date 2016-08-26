@@ -1,0 +1,246 @@
+{
+  "items": [
+    {
+      "_id": "57bee5010b10730194fe8b62",
+      "status": {
+        "is_used": true,
+        "user_id": 0
+      },
+      "name": "Luisa",
+      "history": [
+        {
+          "id": 0,
+          "date": "Mon Oct 26 2015 00:56:41 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Thu Apr 30 2015 20:19:25 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Thu Feb 13 2014 17:53:39 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee5014ebeb9a9325009f7",
+      "status": {
+        "is_used": true,
+        "user_id": 1
+      },
+      "name": "Morton",
+      "history": [
+        {
+          "id": 0,
+          "date": "Sun Jul 10 2016 17:57:43 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Sun Aug 23 2015 01:57:27 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Wed Sep 30 2015 08:32:06 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee501406fd16e6efc4f9e",
+      "status": {
+        "is_used": true,
+        "user_id": 2
+      },
+      "name": "Kellie",
+      "history": [
+        {
+          "id": 0,
+          "date": "Tue Sep 22 2015 17:29:42 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Thu Jan 01 2015 03:54:05 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Fri Aug 14 2015 19:36:00 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee50154b822b18621d6ee",
+      "status": {
+        "is_used": false,
+        "user_id": 3
+      },
+      "name": "Cecilia",
+      "history": [
+        {
+          "id": 0,
+          "date": "Thu Aug 04 2016 01:16:14 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Mon Nov 24 2014 19:12:11 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Wed Aug 24 2016 04:55:01 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee5010df972642c7da60d",
+      "status": {
+        "is_used": false,
+        "user_id": 4
+      },
+      "name": "Logan",
+      "history": [
+        {
+          "id": 0,
+          "date": "Fri Mar 27 2015 04:27:13 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Sat Jan 10 2015 10:25:09 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Thu Oct 01 2015 20:03:25 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee5015b19ab37874e3c01",
+      "status": {
+        "is_used": false,
+        "user_id": 5
+      },
+      "name": "Arnold",
+      "history": [
+        {
+          "id": 0,
+          "date": "Tue Oct 07 2014 12:02:02 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Fri Mar 18 2016 06:31:10 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Tue Mar 10 2015 02:10:17 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee5018337400135998d1d",
+      "status": {
+        "is_used": true,
+        "user_id": 6
+      },
+      "name": "Helen",
+      "history": [
+        {
+          "id": 0,
+          "date": "Wed Feb 17 2016 17:22:16 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Fri Nov 07 2014 15:57:22 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Wed May 13 2015 18:06:49 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee501a860a62a5d13ad57",
+      "status": {
+        "is_used": true,
+        "user_id": 7
+      },
+      "name": "Frazier",
+      "history": [
+        {
+          "id": 0,
+          "date": "Sat Apr 05 2014 23:20:46 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Sat Apr 30 2016 21:53:37 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Sun Aug 02 2015 08:15:02 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee501eed0a35ad38af3be",
+      "status": {
+        "is_used": false,
+        "user_id": 8
+      },
+      "name": "Rachael",
+      "history": [
+        {
+          "id": 0,
+          "date": "Sat Jan 11 2014 22:41:15 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Thu Mar 10 2016 14:48:16 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Fri Oct 02 2015 04:37:23 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee50137bea050f017ca9a",
+      "status": {
+        "is_used": true,
+        "user_id": 9
+      },
+      "name": "Karin",
+      "history": [
+        {
+          "id": 0,
+          "date": "Tue Feb 18 2014 02:43:23 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Tue Feb 23 2016 10:03:47 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Mon Feb 15 2016 13:30:05 GMT+0000"
+        }
+      ]
+    },
+    {
+      "_id": "57bee501a3fd2be99dfbefd4",
+      "status": {
+        "is_used": false,
+        "user_id": 10
+      },
+      "name": "Marlene",
+      "history": [
+        {
+          "id": 0,
+          "date": "Tue Jul 15 2014 13:23:11 GMT+0000"
+        },
+        {
+          "id": 1,
+          "date": "Thu Jun 11 2015 22:36:17 GMT+0000"
+        },
+        {
+          "id": 2,
+          "date": "Mon Mar 21 2016 02:43:15 GMT+0000"
+        }
+      ]
+    }
+  ]
+}
