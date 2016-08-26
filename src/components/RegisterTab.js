@@ -60,7 +60,7 @@ export default class RegisterTab extends React.Component{
     firebase.database().ref('items/' + id ).set({ ...value,
       status: {
         is_used: true,
-        user_id: 1
+        user_id: firebase.auth().currentUser.uid
       }
     })
     this.setState({
@@ -69,9 +69,11 @@ export default class RegisterTab extends React.Component{
       camera_text_color: 'orange'
     })
     AlertIOS.alert(
-     'Unable to Login',
-     'Only Raisin employees can login.'
+     'Awesome',
+     'Device registered use it with care.'
     );
+
+    this.props.changeTab();
   }
 
   deviceBusyCallback(){

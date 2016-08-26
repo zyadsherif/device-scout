@@ -23,16 +23,18 @@ export default class Login extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      fetching: true
     };
   }
 
-  validateEmail(email){
+  _validateEmail(email){
     return /^\"?[\w-_\.]*\"?@raisin\.com$/.test(email);
   }
 
   componentDidMount() {
     this._setupGoogleSignin();
+    store.get('user').then(user => {console.log(user)})
   }
 
   render() {
@@ -77,39 +79,54 @@ export default class Login extends React.Component{
   }
 
   async _setupGoogleSignin() {
-    try {
-      await GoogleSignin.hasPlayServices({ autoResolve: true });
-      await GoogleSignin.configure({
-        // scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-        iosClientId: '694966211472-0idjf1neetd98dv8oj7udffj84uns252.apps.googleusercontent.com',
-        offlineAccess: false
-      });
+    var user = firebase.auth().currentUser;
 
-      // const user = await GoogleSignin.currentUserAsync();
-      // console.log(user);
-      // this.setState({user});
-    }
-    catch(err) {
-      console.log("Google signin error", err.code, err.message);
+    if (!user) {
+      try {
+        await GoogleSignin.hasPlayServices({ autoResolve: true });
+        await GoogleSignin.configure({
+          // scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+          iosClientId: '550445089526-0s34m3lq012n83lp1pqghvpfbsabgqb2.apps.googleusercontent.com',
+          offlineAccess: false
+        });
+      }
+      catch(err) {
+        console.log("Google signin error", err.code, err.message);
+      }
+      // User is signed in.
+    } else {
+      this.props.navigator.immediatelyResetRouteStack([{name: 'MainTabs', user: user}])
+      // No user is signed in.
     }
   }
 
-  _signIn() {
-    var that = this;
-    console.log('Something');
+  _signIn = () => {
     GoogleSignin.signIn()
     .then((user) => {
       console.log(user)
-      // if(that.validateEmail(user.email)){
-      store.save('user', user);
-      that.props.navigator.immediatelyResetRouteStack({name: 'MainTabs'})
-      // }else{
-      //   that._signOut()
-      //   AlertIOS.alert(
-      //    'Unable to Login',
-      //    'Only Raisin employees can login.'
-      //   );
-      // }
+      if(this._validateEmail(user.email)){
+        var credential = firebase.auth.GoogleAuthProvider.credential(user.idToken);
+        // Sign in with credential from the Google user.
+        firebase.auth().signInWithCredential(credential).catch(function(error) {
+          console.log(error);
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+        store.save('user', user);
+        this.props.navigator.immediatelyResetRouteStack([{name: 'MainTabs'}])
+      }else{
+        this._signOut()
+        AlertIOS.alert(
+         'Unable to Login',
+         'Only Raisin employees can login.'
+        );
+      }
     })
     .catch((err) => {
       console.log('WRONG SIGNIN', err);

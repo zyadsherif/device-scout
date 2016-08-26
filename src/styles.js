@@ -18,8 +18,8 @@ var styles = StyleSheet.create({
     borderColor: 'transparent',
     borderWidth: 1,
     paddingLeft: 16,
-    paddingTop: 14,
-    paddingBottom: 16,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   liContainer: {
     flex: 2,

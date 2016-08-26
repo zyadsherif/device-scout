@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import HomeTab from './HomeTab'
 import RegisterTab from './RegisterTab'
+import ProfileTab from './ProfileTab'
 
 export default class MainTabs extends React.Component{
 
@@ -60,7 +61,7 @@ export default class MainTabs extends React.Component{
             });
           }}
           >
-          <View style={styles.tabContent}><Text>Notifications Tab</Text></View>
+          <ProfileTab />
         </Icon.TabBarItem>
       </TabBarIOS>
     );

@@ -1,13 +1,14 @@
 'use strict';
 import React from 'react';
-import {View, Text, ListView} from 'react-native';
+import {Modal, View, Text, ListView, TouchableHighlight, AlertIOS} from 'react-native';
 import firebase from 'firebase'
 
-import { Container, Header, Title, Content } from 'native-base';
+import { Container, Header, Title, Content, Button, Icon } from 'native-base';
 
 const styles = require('../styles.js')
 
 import ListItem from './ListItem'
+import AddItemModal from './AddItemModal'
 
 export default class HomeTab extends React.Component{
 
@@ -16,7 +17,8 @@ export default class HomeTab extends React.Component{
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
-      })
+      }),
+      modalVisible: false
     };
     this.itemsRef = this.getRef().child('items');
   }
@@ -31,7 +33,6 @@ export default class HomeTab extends React.Component{
       // get children as an array
       var items = [];
       snap.forEach((child) => {
-        console.log(child.val());
         items.push({
           title : child.val().name,
           status: child.val().status,
@@ -50,11 +51,18 @@ export default class HomeTab extends React.Component{
     this.listenForItems(this.itemsRef);
   }
 
+  toggleModalVisible = () => {
+    this.setState({...this.state, modalVisible: !this.state.modalVisible});
+  }
+
   render() {
     return (
       <Container>
         <Header>
-            <Title>Device List</Title>
+          <Button transparent onPress={this.toggleModalVisible}>
+            <Icon name='ios-add' />
+          </Button>
+          <Title>Device List</Title>
         </Header>
 
         <Content>
@@ -63,6 +71,14 @@ export default class HomeTab extends React.Component{
             renderRow={this._renderItem.bind(this)}
             enableEmptySections={true}
             style={styles.listview}/>
+            <Modal
+              animationType={"slide"}
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {alert("Modal has been closed.")}}
+              >
+              <AddItemModal close={this.toggleModalVisible} />
+            </Modal>
         </Content>
       </Container>
     )

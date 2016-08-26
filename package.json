@@ -12,6 +12,7 @@
     "react-native": "0.31.0",
     "react-native-camera": "git+https://github.com/lwansbrough/react-native-camera.git",
     "react-native-google-signin": "^0.8.0",
+    "react-native-photo-browser": "^0.2.2",
     "react-native-simple-store": "^1.1.0",
     "react-native-vector-icons": "^2.1.0"
   }

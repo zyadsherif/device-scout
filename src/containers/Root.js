@@ -16,7 +16,6 @@ export default class Root extends React.Component{
 
   constructor(props){
     super(props)
-    console.log(config);
     firebase.initializeApp(config);
   }
 
@@ -31,7 +30,7 @@ export default class Root extends React.Component{
     return (
       <Navigator
         initialRoute={{
-          name: "MainTabs",
+          name: "Login",
           type: "right"
         }}
         renderScene={this._renderScene}
