@@ -1,9 +1,10 @@
 'use strict';
 import React from 'react';
 
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import {Container, Content, Header, Button, Icon, List, ListItem, InputGroup, Input, Title} from 'native-base';
 import Camera from 'react-native-camera';
+import RNFS from 'react-native-fs'
 
 export default class AddItemModal extends React.Component{
 
@@ -23,15 +24,58 @@ export default class AddItemModal extends React.Component{
 
   takePicture = () => {
     this.camera.capture()
-      .then( (data) => {
-        console.log(data);
-        this.setState({...this.state, item:{ image: data } })
-      })
-      .catch(err => console.error(err));
+      .then( ( data ) => {
+        let base64Img = data.path;
+        const currentState = Object.assign({}, this.state)
+
+        RNFS.readFile( base64Img, 'base64' )
+          .then( res => console.log(res) )
+      });
+    // this.camera.capture()
+    //   .then( (data) => {
+    //     var currentState = Object.assign({}, this.state)
+    //     RNFS.readFile(data.path.substring(7), "base64")  //substring(7) -> to remove the file://
+    //     .then(res => {
+    //       console.log(res);
+    //       currentState.item.image = res
+    //       this.setState(currentState)
+    //     })
+    //   })
+    //   .catch(err => console.error(err));
   }
 
   _submitItem = () => {
 
+  }
+
+  _updateName = (name) => {
+    const newState = Object.assign({}, this.state)
+    newState.item.name = name
+    this.setState(newState)
+    console.log(this.state);
+  }
+
+  _renderCamera () {
+    if (this.state.item.image !== null) {
+      return(
+        <Image style={styles.itemImage} source={{uri: this.state.item.image}} />
+      )
+    } else {
+      return(
+        <Camera
+          ref={(cam) => {
+            this.camera = cam;
+          }}
+          style={styles.preview}
+          aspect={Camera.constants.Aspect.fill}
+          target={Camera.constants.CaptureTarget.memory}>
+          <Button primary large onPress={this.takePicture} style={styles.cameraCapture}>
+            <Icon name="ios-camera"></Icon>
+          </Button>
+        </Camera>
+
+      )
+    }
   }
 
   render() {
@@ -48,21 +92,12 @@ export default class AddItemModal extends React.Component{
           <List>
             <ListItem>
               <InputGroup>
-                <Input placeholder='Name' value={this.state.item.name} />
+                <Input onChangeText={(text) => this._updateName(text)} placeholder='Name' value={this.state.item.name} />
               </InputGroup>
             </ListItem>
           </List>
           <View style={styles.cameraContainer}>
-            <Camera
-              ref={(cam) => {
-                this.camera = cam;
-              }}
-              style={styles.preview}
-              aspect={Camera.constants.Aspect.fill}>
-              <Button primary large onPress={this.takePicture} style={styles.cameraCapture}>
-                <Icon name="ios-camera"></Icon>
-              </Button>
-            </Camera>
+            {this._renderCamera()}
           </View>
           <View style={styles.submit}>
             <Button large success block onPress={this._submitItem}>
@@ -103,6 +138,10 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  itemImage: {
+    width: 300,
+    height: 300
   },
   submit: {
     flex: .5,

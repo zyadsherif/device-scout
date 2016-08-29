@@ -1,0 +1,19 @@
+PODS:
+  - React/Core (0.11.0)
+  - RNFS (2.0.1-rc.2):
+    - React/Core
+
+DEPENDENCIES:
+  - RNFS (from `../node_modules/react-native-fs`)
+
+EXTERNAL SOURCES:
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+
+SPEC CHECKSUMS:
+  React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
+  RNFS: bdb66696425507b1de61b94ab67462a5f9c3779f
+
+PODFILE CHECKSUM: c451e0fa781241e5cf756aff99ff30617378e2f8
+
+COCOAPODS: 1.0.1

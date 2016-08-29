@@ -1,6 +1,7 @@
 package com.qr;
 
 import com.facebook.react.ReactActivity;
+import com.rnfs.RNFSPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 

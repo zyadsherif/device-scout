@@ -13,7 +13,7 @@ import firebase from 'firebase'
 
 import {GoogleSignin, GoogleSigninButton} from 'react-native-google-signin';
 import store from 'react-native-simple-store';
-import { Container, Content, Header, Title, Button } from 'native-base';
+import { Container, Content, Header, Title, Button, Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 const windowSize = Dimensions.get('window')
@@ -32,13 +32,32 @@ export default class Login extends React.Component{
     return /^\"?[\w-_\.]*\"?@raisin\.com$/.test(email);
   }
 
-  componentDidMount() {
-    this._setupGoogleSignin();
-    store.get('user').then(user => {console.log(user)})
+  _checkForUser = () => {
+    var that = this;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        that._autoLogin(user)
+        console.log(user)
+        // User is signed in.
+      } else {
+        // No user is signed in.
+        that._setupGoogleSignin();
+      }
+    });
+
+  }
+
+  _autoLogin = (user) => {
+    this.props.navigator.immediatelyResetRouteStack([{name: 'MainTabs'}])
+  }
+
+
+  componentDidMount = () => {
+    this._checkForUser();
   }
 
   render() {
-    if (!this.state.user) {
+    if (!this.state.user && this.state.fetching === false) {
       return (
         <View style={styles.container}>
           <Image style={styles.bg} source={ require('./img/loginBG.png') } />
@@ -58,10 +77,22 @@ export default class Login extends React.Component{
           </View>
         </View>
       );
+    }else{
+      return(
+        <View style={styles.container}>
+          <Image style={styles.bg} source={ require('./img/loginBG.png') } />
+          <View style={styles.header}>
+              <Image style={styles.mark} source={{uri: 'https://i.imgur.com/da4G0Io.png'}} />
+          </View>
+          <View style={styles.spinnerContainer}>
+            <Spinner/>
+          </View>
+        </View>
+
+      )
     }
 
     if (this.state.user) {
-      console.log(this.props.navigator);
       this.props.navigator.immediatelyResetRouteStack([{name: 'MainTabs'}])
       return (
         <View style={styles.container}>
@@ -79,25 +110,19 @@ export default class Login extends React.Component{
   }
 
   async _setupGoogleSignin() {
-    var user = firebase.auth().currentUser;
-
-    if (!user) {
-      try {
-        await GoogleSignin.hasPlayServices({ autoResolve: true });
-        await GoogleSignin.configure({
-          // scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-          iosClientId: '550445089526-0s34m3lq012n83lp1pqghvpfbsabgqb2.apps.googleusercontent.com',
-          offlineAccess: false
-        });
-      }
-      catch(err) {
-        console.log("Google signin error", err.code, err.message);
-      }
-      // User is signed in.
-    } else {
-      this.props.navigator.immediatelyResetRouteStack([{name: 'MainTabs', user: user}])
-      // No user is signed in.
+    try {
+      await GoogleSignin.hasPlayServices({ autoResolve: true });
+      await GoogleSignin.configure({
+        // scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+        iosClientId: '550445089526-0s34m3lq012n83lp1pqghvpfbsabgqb2.apps.googleusercontent.com',
+        offlineAccess: false
+      });
+      this.setState({user: null, fetching: false})
     }
+    catch(err) {
+      console.log("Google signin error", err.code, err.message);
+    }
+    // User is signed in.
   }
 
   _signIn = () => {
@@ -195,5 +220,10 @@ const styles = StyleSheet.create({
     flex: 3,
     color: 'white',
     fontSize: 16
+  },
+  spinnerContainer: {
+    flex: .5,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
